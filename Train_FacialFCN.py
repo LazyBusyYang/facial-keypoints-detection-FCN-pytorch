@@ -90,10 +90,8 @@ class New_CNN():
             self.model = torch.nn.DataParallel(self.model)
             self.model = self.model.cuda()
 
-        # self.loss_func = nn.CrossEntropyLoss()     
         self.loss_func = nn.MSELoss(size_average=True)  
         self.optimizer = optim.Adam(params=self.model.parameters(), lr=self.lr, betas=(0.5, 0.999))
-        # self.optimizer = torch.optim.RMSprop(self.model.parameters(), lr=self.lr, alpha=0.9)
     
     def resume_and_evaluate(self):
         if self.resume:
@@ -103,7 +101,7 @@ class New_CNN():
                 self.start_epoch = checkpoint['epoch'] + 1
                 self.epoch = checkpoint['epoch']
                 self.best_perf = checkpoint['best_perf']
-                self.perf = checkpoint['perf'] # note!
+                self.perf = checkpoint['perf'] 
                 self.best_loss = checkpoint['best_loss']
                 self.loss_val = checkpoint['loss_val']
                 self.model.load_state_dict(checkpoint['state_dict'])
@@ -115,7 +113,6 @@ class New_CNN():
             else:
                 print("==> no checkpoint found at '{}'".format(self.resume))
         if self.evaluate:
-            #self.epoch = 0
             self.perf, self.loss_val = self.validate_1epoch()
             print("Eval result:\n    performance: %f \t\t loss:%f"%(self.perf, self.loss_val))
     def run(self):
@@ -125,18 +122,13 @@ class New_CNN():
         
         for self.epoch in range(self.start_epoch, self.nb_epochs):
             self.train_1epoch()
-            #lr_scheduler
-            # if self.epoch % 2 == 0:
             if True:
                 self.perf, self.loss_val = self.validate_1epoch()    
-                # self.perf, self.loss_val = (self.perf, self.loss_val)
-                # is_best = self.loss_val <= self.best_loss
                 is_best = self.perf <= self.best_perf
                 # save model
                 if is_best:
                     print("Got a better model! \n New perf: %f \t\t Last best perf:%f"%(self.perf, self.best_perf))
                     print(" New loss: %f \t\t Last best loss:%f"%(self.loss_val, self.best_loss))
-                    # self.best_loss = self.loss_val
                     self.best_perf = self.perf
                     self.best_loss = self.loss_val
                 
@@ -167,7 +159,6 @@ class New_CNN():
             
             if Config.use_cuda:
                 image = image.cuda()
-                # 4D Tensor to 5D Tensor
                 label_map = label_map.cuda()
 
             # measure data loading time
