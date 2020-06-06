@@ -3,10 +3,9 @@ facial-keypoints-detection-FCN
 Kaggle "Facial Keypoints Detection" competition, using FCN, pytorch
 -------------------------------------------------------------------
 # result
-| ---- | train | val | private | public |
+| @400epoch | train | val | private | public |
 | ----- | ----- | ----- | ----- | ----- |
 | RMSE | 0.719 | 1.786 | 1.462 | 1.783 |
-@400epoch<br>
 # where does it come from
 https://fairyonice.github.io/Achieving-top-5-in-Kaggles-facial-keypoints-detection-using-FCN.html<br>
 # what's different
