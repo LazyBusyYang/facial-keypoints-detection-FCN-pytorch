@@ -25,10 +25,6 @@ run Train_FacialFCN.py with:<br>
 python Train_FacialFCN.py<br>
 It uses only the 2140 faces without nan point. Should be able to reach rmse 3.1 on kaggle test<br>
 Also you have to edit Config.py to locate the right path of dataset, and the path to save checkpoint, etc.<br>
-## step 1
-run Train_FacialFCN.py with:<br>
-python Train_FacialFCN.py<br>
-It uses only the 2140 faces without nan point. Should be able to reach rmse 3.1 on kaggle test<br>
 ## step 2
 run Train_WeightedFacialFCN.py with, loading your best model in step1 as arg of --resume as well:<br>
 python Train_WeightedFacialFCN.py<br>
